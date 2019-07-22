@@ -16,14 +16,6 @@ module.exports = {
   },
 
 
-  // create: function (req, res, next) {
-  //   Cart.create({     
-	// 		status: req.body.status,
-	//  })
-  //     .then((cart) => { res.json({ cart }) })
-  //     .catch((error) => { console.log(error); })
-  // },
-
   create: (req, res, next) => {
     Cart.create({
       status: req.body.status,
@@ -31,25 +23,23 @@ module.exports = {
       .then((cart) => { res.json({ cart }); })
       .catch((error) => res.status(500).json({ error: error.errors[0].message }));
   },
-  // update: function (req, res, next) {
-  //   Cart.findByPk(req.body.id)
-  //     .then((cart) => {
-  //       cart.update({ ...req.body })
-  //         .then((updatedcart) => { res.json({ updatedcart }); })
-  //         .catch((error) => { console.log(error); })
-  //     })
-  //     .catch((error) => { console.log(error); });
-  // },
 
-  update: function (req, res, next) {
+  update: function(req, res, next){
     Cart.findByPk(req.params.id)
-      .then((user) => {
-        Cart.update({ status: req.body.status})
-          .then((updatedcart) => { res.json({ updatedcart }); })
-          .catch((error) => { console.log(error); })
-      })
-      .catch((error) => { console.log(error); });
+    .then((cart) => {
+      if(cart){
+        cart.update({ ...req.body })
+        .then((cart) => {
+          res.json({cart})
+        })
+        .catch((err) => res.json({err}))
+      } else {
+        res.json({message: 'Cart not found !'})
+      }
+    })
+    .catch((err) => res.json({err}))
   },
+
 
   delete: function (req, res, next) {
     Cart.findByPk(req.params.id)

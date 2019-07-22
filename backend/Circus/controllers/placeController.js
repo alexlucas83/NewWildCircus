@@ -1,6 +1,6 @@
 const models = require('../models');
 const Place = models.Place;
-// use Place for class and place for instance
+// use Cart for class and cart for instance
 module.exports = {
   index: function (req, res, next) {
     Place.findAll()
@@ -15,41 +15,34 @@ module.exports = {
       .catch((error) => { console.log(error); });
   },
 
-
-  create: function (req, res, next) {
-    Place.create({     
-			price: req.body.price,
-			picture: req.body.picture,
-			description: req.body.description,
-			adress: req.body.adress,
-			dated: req.body.dated
-	 })
-      .then((place) => { res.json({ place }) })
-      .catch((error) => { console.log(error); })
+  create: (req, res, next) => {
+    Place.create({...req.body})
+      .then((place) => { res.json({ place }); })
+      .catch((error) => res.status(500).json({ message: 'place has been createted !'}));
   },
 
 
-  update: function (req, res, next) {
-    Place.findByPk(req.body.id)
-      .then((place) => {
-        place.update({ 
-					price: req.body.price,
-					picture: req.body.picture,
-					description: req.body.description,
-					adress: req.body.adress,
-					dated: req.body.dated,
-			
-				 })
-          .then((updatedplace) => { res.json({ updatedplace }); })
-          .catch((error) => { console.log(error); })
-      })
-      .catch((error) => { console.log(error); });
+  update: function(req, res, next){
+    Place.findByPk(req.params.id)
+    .then((place) => {
+      if(place){
+        place.update({ ...req.body })
+        .then((place) => {
+          res.json({place})
+        })
+        .catch((err) => res.json({err}))
+      } else {
+        res.json({message: 'Place not found !'})
+      }
+    })
+    .catch((err) => res.json({err}))
   },
+
   delete: function (req, res, next) {
     Place.findByPk(req.params.id)
       .then((place) => {
         place.destroy()
-          .then((destroyedplace) => { res.json({ message: 'cart has been deleted !'}); })
+          .then((destroyedplace) => { res.json({message: 'place has been deleted !' }); })
           .catch((error) => { console.log(error); })
       })
       .catch((error) => { console.log(error); });
