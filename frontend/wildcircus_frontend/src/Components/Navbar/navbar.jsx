@@ -30,7 +30,7 @@ export default class Example extends React.Component {
     return (
       <div>
         <Navbar color="dark" light expand="md" className="navbarCircus">
-        <img src="https://www.vendeemusique.fr/wp-content/uploads/2019/03/logo-rvb-cirque-ecran.png" alt="logoScary" height="50"></img>
+        {/* <img src="https://www.vendeemusique.fr/wp-content/uploads/2019/03/logo-rvb-cirque-ecran.png" alt="logoScary" height="50"></img> */}
           <NavbarBrand href="/">AlexCircus</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>

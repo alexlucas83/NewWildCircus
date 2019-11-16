@@ -6,6 +6,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Home from './Pages/Home/home';
 import Calendar from './Pages/Calendar/calendar';
 import Pictures from './Pages/Pictures/pictures';
+// import Panier from './Pages/Panier/panier';
 
 
 
@@ -20,7 +21,7 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route path="/calendar" component={Calendar} />
                <Route path="/pictures" component={Pictures} /> 
-               {/* <Route path="/contact" component={} />  */}
+               {/* <Route path="/contact" component={Panier} />  */}
             </Switch>
       <Footer />
     </div>
